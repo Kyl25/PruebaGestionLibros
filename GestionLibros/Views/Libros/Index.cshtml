@@ -1,0 +1,81 @@
+﻿@model IEnumerable<GestionLibros.Models.Libro>
+
+@{
+    ViewData["Title"] = "Libros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    @if (TempData["mensaje"] != null) 
+    {
+        <div class="alert alert-warning alert-dismissible fade show">
+            @TempData["mensaje"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <div class="row">
+        <div class="col-sm-8">
+            <h3>
+                Lista de libros
+            </h3>
+        </div>
+        <div class="col-sm-4">
+            <a class="btn btn-success d-block" asp-action="Create" asp-controller="Libros">Agregar</a>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @if (Model != null)
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td>@Html.DisplayNameFor(m => m.Id)</td>
+                            <td>@Html.DisplayNameFor(m => m.Titulo)</td>
+                            <td>@Html.DisplayNameFor(m => m.Descripcion)</td>
+                            <td>@Html.DisplayNameFor(m => m.FechaLanzamiento)</td>
+                            <td>@Html.DisplayNameFor(m => m.Autor)</td>
+                            <td>@Html.DisplayNameFor(m => m.precio)</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Titulo</td>
+                                <td>@item.Descripcion</td>
+                                <td>@item.FechaLanzamiento</td>
+                                <td>@item.Autor</td>
+                                <td>@item.precio</td>
+                                <td>
+                                    <a asp-controller="Libros" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">
+                                        Editar
+                                    </a>
+                                    <a asp-controller="Libros" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                                        Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                                }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No existen registros</p>
+                }
+            else
+            {
+                <p>No existen registros</p>
+            }
+    </div>
+
+</div>
+
+

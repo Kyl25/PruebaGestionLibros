@@ -1,0 +1,82 @@
+﻿@model GestionLibros.Models.VentaLibro
+@{
+    ViewData["Title"] = "Nuevo venta/reserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Crear nuevo reserva o venta</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <form method="post" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label>CLientes: </label>
+                    <select asp-for="Cliente" name="Cliente" class="form-control">
+                        
+                        @if (ViewBag.Cliente != null)
+                            @foreach (var cliente in ViewBag.Cliente)
+                            {
+                                <option value="@cliente" asp-for="Cliente"  class="form-control">
+                                    @cliente.Nombres
+                                </option>
+                            }
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label>Libros: </label>
+                    <select asp-for="Libro"  name="Libro" class="form-control">
+                        @foreach (var cliente in ViewBag.Libros)
+                        {
+                            <option  value="@cliente.Id"  class="form-control">
+                                @cliente.Titulo
+                            </option>
+                        }
+                    </select>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Fecha" class="control-label">
+                    </label>
+                    <input asp-for="Fecha" class="form-control" />
+                    <span asp-validation-for="Fecha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaReserva" class="control-label">
+                    </label>
+                    <input asp-for="FechaReserva" class="form-control" />
+                    <span asp-validation-for="FechaReserva" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Compra" class="control-label">
+                    </label>
+                    <input asp-for="Compra" class="form-control" />
+                    <span asp-validation-for="Compra" class="text-danger"></span>
+
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" value="Crear" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+}
+
+
